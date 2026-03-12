@@ -1,8 +1,8 @@
 class Promptfoo < Formula
   desc "Test your LLM app locally"
   homepage "https://promptfoo.dev/"
-  url "https://registry.npmjs.org/promptfoo/-/promptfoo-0.120.26.tgz"
-  sha256 "2835ee7da76c4af2d1c938cbb41f932b1e84a1b838da59e3fd48b504d3b772bd"
+  url "https://registry.npmjs.org/promptfoo/-/promptfoo-0.121.2.tgz"
+  sha256 "bc01fa1d55bb4370891ba23f7eea70c85225f2b8250cadf101018022bcc11f41"
   license "MIT"
 
   bottle do
@@ -32,8 +32,8 @@ class Promptfoo < Formula
   # Resources needed to build sharp from source to avoid bundled vips
   # https://sharp.pixelplumbing.com/install/#building-from-source
   resource "node-addon-api" do
-    url "https://registry.npmjs.org/node-addon-api/-/node-addon-api-8.5.0.tgz"
-    sha256 "d12f07c8162283b6213551855f1da8dac162331374629830b5e640f130f07910"
+    url "https://registry.npmjs.org/node-addon-api/-/node-addon-api-8.6.0.tgz"
+    sha256 "e3029e9581015874cc794771ec9b970be83b12c456ded15cfba9371bddc42569"
   end
 
   resource "node-gyp" do
@@ -50,6 +50,9 @@ class Promptfoo < Formula
     node_modules = libexec/"lib/node_modules/promptfoo/node_modules"
     rm_r(node_modules/"@anthropic-ai/claude-agent-sdk/vendor/ripgrep")
     arch = Hardware::CPU.intel? ? "x64" : Hardware::CPU.arch.to_s
+    os = OS.mac? ? "darwin" : "linux"
+    keep = node_modules.glob("@anthropic-ai/claude-agent-sdk/vendor/tree-sitter-bash/#{arch}-#{os}")
+    rm_r(node_modules.glob("@anthropic-ai/claude-agent-sdk/vendor/tree-sitter-bash/*") - keep)
     keep = node_modules.glob("onnxruntime-node/bin/napi-v*/#{OS.kernel_name.downcase}/#{arch}")
     rm_r(node_modules.glob("onnxruntime-node/bin/napi-v*/*/*") - keep)
     if OS.linux? && Hardware::CPU.intel?
