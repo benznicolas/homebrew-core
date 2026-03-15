@@ -1,0 +1,12 @@
+{
+  "aider": "cffi numpy pillow pydantic rpds-py scipy",
+  "ansible@10": "cffi cryptography",
+  "ansible@9": "cffi cryptography",
+  "azure-cli": "certifi cffi cryptography",
+  "backgroundremover": "numpy",
+  "dstack": "pydantic",
+  "gitless": "cffi",
+  "mentat": "cffi pydantic",
+  "openai-whisper": "numpy",
+  "prowler": "cffi cryptography numpy pydantic rpds-py"
+}
